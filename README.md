@@ -47,12 +47,15 @@ Currently, we have built-in support for the following alert types:
 - MS Teams
 - Slack
 - Telegram
+- GoogleChat
 - AWS SNS
 - VictorOps
 - PagerDuty
+- PagerTree
 - Exotel
 - Twilio
 - Gitter
+- Line Notify
 
 Additional rule types and alerts can be easily imported or written.
 
@@ -87,8 +90,23 @@ Eg: ``--rule this_rule.yaml``
 ``--config`` allows you to specify the location of the configuration. By default, it is will look for config.yaml in the current directory.
 
 ## Third Party Tools And Extras
-### Bitsensor Kibana plugin
-[Configure and test rules via a Kibana plugin](https://bitsensor.io/blog/elastalert-kibana-plugin-centralized-logging-with-integrated-alerting)
+### Kibana plugin
+![img](https://raw.githubusercontent.com/bitsensor/elastalert-kibana-plugin/master/showcase.gif)
+Available at the [ElastAlert Kibana plugin repository](https://github.com/bitsensor/elastalert-kibana-plugin).
+
+### Docker
+A [Dockerized version](https://github.com/bitsensor/elastalert) of ElastAlert including a REST api is build from `master` to `bitsensor/elastalert:latest`.
+
+```bash
+git clone https://github.com/bitsensor/elastalert.git; cd elastalert
+docker run -d -p 3030:3030 \
+    -v `pwd`/config/elastalert.yaml:/opt/elastalert/config.yaml \
+    -v `pwd`/config/config.json:/opt/elastalert-server/config/config.json \
+    -v `pwd`/rules:/opt/elastalert/rules \
+    -v `pwd`/rule_templates:/opt/elastalert/rule_templates \
+    --net="host" \
+    --name elastalert bitsensor/elastalert:latest
+```
 
 ## Documentation
 
